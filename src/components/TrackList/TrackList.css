@@ -1,0 +1,30 @@
+.track-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.track-list__item {
+  min-width: 0;
+}
+
+@media (max-width: 1200px) {
+  .track-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .track-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 380px) {
+  .track-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

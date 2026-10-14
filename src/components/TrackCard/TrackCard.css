@@ -1,0 +1,74 @@
+.track-card {
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.track-card__artwork {
+  position: relative;
+  aspect-ratio: 1;
+  background-color: #e5e7eb;
+}
+
+.track-card__cover {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.track-card__play,
+.track-card__favorite {
+  position: absolute;
+  bottom: 12px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #172026;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.track-card__play {
+  left: 12px;
+}
+
+.track-card__favorite {
+  right: 12px;
+}
+
+.track-card__play:hover,
+.track-card__favorite:hover {
+  background-color: #f3f4f6;
+}
+
+.track-card__play:focus-visible,
+.track-card__favorite:focus-visible {
+  outline: 2px solid #008b8b;
+  outline-offset: 3px;
+}
+
+.track-card__info {
+  padding: 12px;
+}
+
+.track-card__title {
+  margin: 0 0 6px;
+  color: #172026;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+.track-card__text {
+  margin: 4px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
