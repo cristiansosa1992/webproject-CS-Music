@@ -5,8 +5,17 @@ import "./Header.css";
 function Header() {
   return (
     <header className="header">
-      <Link className="header__logo" to="/">
-        CS-Music
+      <Link className="header__logo" to="/" aria-label="CS-Music, ir al inicio">
+        <img
+          className="header__logo-mark"
+          src={`${import.meta.env.BASE_URL}logo-mark.svg`}
+          alt=""
+          width="44"
+          height="44"
+        />
+        <span className="header__logo-name" aria-hidden="true">
+          CS<span className="header__logo-accent">Music</span>
+        </span>
       </Link>
 
       <div className="header__search">

@@ -15,3 +15,7 @@ export type Track = TrackCardProps & {
 export type TrackListProps = {
   tracks: Track[];
 };
+
+export type FavoritesPanelProps = {
+  tracks: Track[];
+};

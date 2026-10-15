@@ -1,6 +1,5 @@
-import './TrackCard.css';
-import type { TrackCardProps } from '../../types/track';
-
+import "./TrackCard.css";
+import type { TrackCardProps } from "../../types/track";
 
 function TrackCard({
   title,
@@ -9,7 +8,6 @@ function TrackCard({
   genre,
   year,
   cover,
-  
 }: TrackCardProps) {
   return (
     <article className="track-card">
@@ -25,7 +23,16 @@ function TrackCard({
           type="button"
           aria-label={`Reproducir ${title}`}
         >
-          ▶
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M8 5v14l11-7Z" />
+          </svg>
         </button>
 
         <button
@@ -34,7 +41,20 @@ function TrackCard({
           aria-label={`Agregar ${title} a favoritos`}
           aria-pressed={false}
         >
-          ♡
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" />
+          </svg>
         </button>
       </div>
 
@@ -45,7 +65,6 @@ function TrackCard({
         <p className="track-card__text">
           {genre} · {year}
         </p>
-        
       </div>
     </article>
   );

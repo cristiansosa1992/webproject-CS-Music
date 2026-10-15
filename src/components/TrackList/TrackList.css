@@ -9,6 +9,7 @@
 
 .track-list__item {
   min-width: 0;
+  display: flex;
 }
 
 @media (max-width: 1200px) {

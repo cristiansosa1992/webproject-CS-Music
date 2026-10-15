@@ -1,75 +1,82 @@
-# React + TypeScript + Vite
+# CS-Music
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto final de desarrollo front end realizado por Cristian
+durante el programa de TripleTen.
 
-Currently, two official plugins are available:
+La aplicación está pensada para explorar canciones, álbumes y
+artistas, escuchar fragmentos musicales y guardar favoritos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Estado actual
 
-## React Compiler
+Interfaz en desarrollo correspondiente a la Etapa 1.1.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Página principal con catálogo musical.
+- Página Sobre el autor.
+- Página para rutas no encontradas.
+- Formulario de búsqueda.
+- Selección visual de categorías.
+- Tarjetas musicales reutilizables.
+- Panel de favoritos con datos de ejemplo.
+- Diseño adaptable desde 320 px.
 
-## Expanding the ESLint configuration
+Los datos actuales están escritos a mano. La búsqueda, el filtrado
+de resultados, la reproducción, la gestión de favoritos y el botón
+Cargar más todavía no están conectados.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tecnologías
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React
+- TypeScript
+- Vite
+- React Router
+- CSS con Flexbox y Grid
+- Fuente Inter alojada localmente en formato WOFF2
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Instalación
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Se necesita Node.js y npm.
 
-```
+1. Clonar el repositorio:
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+   git clone https://github.com/cristiansosa1992/webproject-CS-Music.git
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2. Entrar al proyecto:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+   cd webproject-CS-Music
 
-```
+3. Cambiar a la rama de desarrollo:
+
+   git switch stage-frontend
+
+4. Instalar las dependencias:
+
+   npm ci
+
+5. Iniciar el servidor de desarrollo:
+
+   npm run dev
+
+Abrir la dirección que indique la terminal.
+
+## Comprobaciones
+
+Revisar el código:
+
+    npm run lint
+
+Generar la versión de producción:
+
+    npm run build
+
+Previsualizar la versión de producción:
+
+    npm run preview
+
+## Próximos pasos
+
+- Conectar iTunes Search API.
+- Implementar búsqueda y filtros con resultados reales.
+- Reproducir fragmentos musicales.
+- Agregar y eliminar favoritos.
+- Guardar favoritos en localStorage.
+- Implementar Cargar más.
