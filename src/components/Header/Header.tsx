@@ -1,8 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import SearchForm from "../SearchForm/SearchForm";
+import type { SearchFormProps } from "../../types/search";
 import "./Header.css";
 
-function Header() {
+function Header({ alBuscar }: SearchFormProps) {
   return (
     <header className="header">
       <Link className="header__logo" to="/" aria-label="CS-Music, ir al inicio">
@@ -19,7 +20,7 @@ function Header() {
       </Link>
 
       <div className="header__search">
-        <SearchForm />
+        <SearchForm alBuscar={alBuscar} />
       </div>
 
       <nav className="header__nav" aria-label="Navegación principal">

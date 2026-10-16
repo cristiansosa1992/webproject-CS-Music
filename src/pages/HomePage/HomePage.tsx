@@ -1,7 +1,18 @@
-import Main from '../../components/Main/Main';
+import Main from "../../components/Main/Main";
+import type { CatalogProps } from "../../types/track";
 
-function HomePage() {
-  return <Main />;
+function HomePage({
+  tracks,
+  categoriaSeleccionada,
+  alCambiarCategoria,
+}: CatalogProps) {
+  return (
+    <Main
+      tracks={tracks}
+      categoriaSeleccionada={categoriaSeleccionada}
+      alCambiarCategoria={alCambiarCategoria}
+    />
+  );
 }
 
 export default HomePage;

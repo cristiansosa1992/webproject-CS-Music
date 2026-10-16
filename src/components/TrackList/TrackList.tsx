@@ -6,8 +6,9 @@ function TrackList({ tracks }: TrackListProps) {
   return (
     <ul className="track-list" aria-label="Resultados musicales">
       {tracks.map((track) => (
-        <li className="track-list__item" key={track.id}>
+        <li className="track-list__item" key={`${track.category ?? "songs"}-${track.id}`}>
           <TrackCard
+            category={track.category}
             title={track.title}
             artist={track.artist}
             album={track.album}

@@ -1,4 +1,7 @@
+import type { CategoriaBusqueda, CategoryFilterProps } from "./search";
+
 export type TrackCardProps = {
+  category?: CategoriaBusqueda;
   title: string;
   artist: string;
   album: string;
@@ -15,6 +18,8 @@ export type Track = TrackCardProps & {
 export type TrackListProps = {
   tracks: Track[];
 };
+
+export type CatalogProps = TrackListProps & CategoryFilterProps;
 
 export type FavoritesPanelProps = {
   tracks: Track[];

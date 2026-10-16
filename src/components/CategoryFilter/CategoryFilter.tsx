@@ -1,8 +1,10 @@
 import "./CategoryFilter.css";
-import { useState } from "react";
+import type { CategoryFilterProps } from "../../types/search";
 
-function CategoryFilter() {
-  const [selectedCategory, setSelectedCategory] = useState("songs");
+function CategoryFilter({
+  categoriaSeleccionada,
+  alCambiarCategoria,
+}: CategoryFilterProps) {
   return (
     <div
       className="category-filter"
@@ -11,33 +13,39 @@ function CategoryFilter() {
     >
       <button
         className={`category-filter__button ${
-          selectedCategory === "songs" ? "category-filter__button_active" : ""
+          categoriaSeleccionada === "songs"
+            ? "category-filter__button_active"
+            : ""
         }`}
         type="button"
-        aria-pressed={selectedCategory === "songs"}
-        onClick={() => setSelectedCategory("songs")}
+        aria-pressed={categoriaSeleccionada === "songs"}
+        onClick={() => alCambiarCategoria("songs")}
       >
         Canciones
       </button>
 
       <button
         className={`category-filter__button ${
-          selectedCategory === "albums" ? "category-filter__button_active" : ""
+          categoriaSeleccionada === "albums"
+            ? "category-filter__button_active"
+            : ""
         }`}
         type="button"
-        aria-pressed={selectedCategory === "albums"}
-        onClick={() => setSelectedCategory("albums")}
+        aria-pressed={categoriaSeleccionada === "albums"}
+        onClick={() => alCambiarCategoria("albums")}
       >
         Álbumes
       </button>
 
       <button
         className={`category-filter__button ${
-          selectedCategory === "artists" ? "category-filter__button_active" : ""
+          categoriaSeleccionada === "artists"
+            ? "category-filter__button_active"
+            : ""
         }`}
         type="button"
-        aria-pressed={selectedCategory === "artists"}
-        onClick={() => setSelectedCategory("artists")}
+        aria-pressed={categoriaSeleccionada === "artists"}
+        onClick={() => alCambiarCategoria("artists")}
       >
         Artistas
       </button>

@@ -1,12 +1,14 @@
 import "./Main.css";
 import CategoryFilter from "../CategoryFilter/CategoryFilter";
 import TrackList from "../TrackList/TrackList";
-import type { Track } from "../../types/track";
-import flowersCover from "../../images/covers/flowers.jpg";
-import magicCover from "../../images/covers/magic.png";
 import FavoritesPanel from "../FavoritesPanel/FavoritesPanel";
 
-const exampleTracks: Track[] = [
+import flowersCover from "../../images/covers/flowers.jpg";
+import magicCover from "../../images/covers/magic.png";
+import { useState } from "react";
+import { RESULTS_PER_PAGE } from "../../constants/config";
+import type { Track, CatalogProps } from "../../types/track";
+const favoriteTracks: Track[] = [
   {
     id: 1,
     title: "Flowers",
@@ -17,99 +19,6 @@ const exampleTracks: Track[] = [
     cover: flowersCover,
   },
   {
-    id: 2,
-    title: "Magic",
-    artist: "The Wink",
-    album: "The wink",
-    genre: "rock",
-    year: 2026,
-    cover: magicCover,
-  },
-   {
-    id: 3,
-    title: "Flowers",
-    artist: "Miley Cyrus",
-    album: "Endless Summer Vacation",
-    genre: "Pop",
-    year: 2023,
-    cover: flowersCover,
-  },
-  {
-    id: 4,
-    title: "Magic",
-    artist: "The Wink",
-    album: "The wink",
-    genre: "rock",
-    year: 2026,
-    cover: magicCover,
-  },
-   {
-    id: 5,
-    title: "Flowers",
-    artist: "Miley Cyrus",
-    album: "Endless Summer Vacation",
-    genre: "Pop",
-    year: 2023,
-    cover: flowersCover,
-  },
-  {
-    id: 6,
-    title: "Magic",
-    artist: "The Wink",
-    album: "The wink",
-    genre: "rock",
-    year: 2026,
-    cover: magicCover,
-  },
-   {
-    id: 7,
-    title: "Flowers",
-    artist: "Miley Cyrus",
-    album: "Endless Summer Vacation",
-    genre: "Pop",
-    year: 2023,
-    cover: flowersCover,
-  },
-  {
-    id: 8,
-    title: "Magic",
-    artist: "The Wink",
-    album: "The wink",
-    genre: "rock",
-    year: 2026,
-    cover: magicCover,
-  },
-   {
-    id: 9,
-    title: "Flowers",
-    artist: "Miley Cyrus",
-    album: "Endless Summer Vacation",
-    genre: "Pop",
-    year: 2023,
-    cover: flowersCover,
-  },
-  {
-    id: 10,
-    title: "Magic",
-    artist: "The Wink",
-    album: "The wink",
-    genre: "rock",
-    year: 2026,
-    cover: magicCover,
-  },
-]
-
-  const favoriteTracks: Track[] = [
-  {
-    id: 1,
-    title: "Flowers",
-    artist: "Miley Cyrus",
-    album: "Endless Summer Vacation",
-    genre: "Pop",
-    year: 2023,
-    cover: flowersCover,
-  },
-   {
     id: 10,
     title: "Magic",
     artist: "The Wink",
@@ -120,17 +29,38 @@ const exampleTracks: Track[] = [
   },
 ];
 
-function Main() {
+function Main({
+  tracks,
+  categoriaSeleccionada,
+  alCambiarCategoria,
+}: CatalogProps) {
+  const [cantidadVisible, setCantidadVisible] = useState(RESULTS_PER_PAGE);
+
+  const cancionesVisibles = tracks.slice(0, cantidadVisible);
+
+  function mostrarMas() {
+    setCantidadVisible((cantidadActual) => cantidadActual + RESULTS_PER_PAGE);
+  }
+
   return (
     <main className="main">
       <section className="catalog" aria-label="Catálogo musical">
         <h1>Explora música</h1>
-        <CategoryFilter />
-        <TrackList tracks={exampleTracks} />
+        <CategoryFilter
+          categoriaSeleccionada={categoriaSeleccionada}
+          alCambiarCategoria={alCambiarCategoria}
+        />
+        <TrackList tracks={cancionesVisibles} />
 
-        <button className="catalog__load-more" type="button">
-          Cargar más
-        </button>
+        {cantidadVisible < tracks.length && (
+          <button
+            className="catalog__load-more"
+            type="button"
+            onClick={mostrarMas}
+          >
+            Cargar más
+          </button>
+        )}
       </section>
 
       <FavoritesPanel tracks={favoriteTracks} />
