@@ -2,12 +2,16 @@ import { useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
 import HomePage from "./pages/HomePage/HomePage";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import { buscarCatalogo } from "./utils/itunesApi";
 import type { ItunesResult } from "./types/itunes";
 import { adaptarResultado } from "./utils/trackMapper";
 import type { CategoriaBusqueda } from "./types/search";
+import type { Track } from "./types/track";
+import { cargarFavoritos, guardarFavoritos } from "./utils/favoritesStorage";
+import { useAudioPlayer } from "./hooks/useAudioPlayer";
 import "./App.css";
 
 function App() {
@@ -25,6 +29,10 @@ function App() {
 
   const ultimaBusqueda = useRef("");
   const solicitudActual = useRef(0);
+
+  const [favoritos, setFavoritos] = useState<Track[]>(cargarFavoritos);
+  const [mensajeGuardado, setMensajeGuardado] = useState("");
+  const reproductor = useAudioPlayer();
 
   async function buscarMusica(
     textoBusqueda: string,
@@ -47,10 +55,7 @@ function App() {
 
     try {
       // Consulta utilizando el texto y la categoría seleccionada.
-      const respuesta = await buscarCatalogo(
-        textoLimpio,
-        categoria,
-      );
+      const respuesta = await buscarCatalogo(textoLimpio, categoria);
 
       if (identificadorSolicitud === solicitudActual.current) {
         setCanciones(respuesta.results);
@@ -85,9 +90,56 @@ function App() {
   // Convierte cada resultado al formato de nuestras tarjetas.
   const resultados = canciones.map(adaptarResultado);
 
+  function alternarFavorito(cancion: Track) {
+    if (cancion.category && cancion.category !== "songs") {
+      return;
+    }
+
+    const yaEsFavorita = favoritos.some(
+      (favorito) => favorito.id === cancion.id,
+    );
+
+    actualizarFavoritos(
+      yaEsFavorita
+        ? favoritos.filter((favorito) => favorito.id !== cancion.id)
+        : [...favoritos, cancion],
+    );
+  }
+
+  function actualizarFavoritos(nuevosFavoritos: Track[]) {
+    setFavoritos(nuevosFavoritos);
+    const guardados = guardarFavoritos(nuevosFavoritos);
+    setMensajeGuardado(
+      guardados
+        ? ""
+        : "No se pudieron guardar los favoritos en este navegador. Se conservarán solo mientras la aplicación esté abierta.",
+    );
+  }
+
+  function eliminarFavorito(idCancion: number) {
+    actualizarFavoritos(
+      favoritos.filter((favorito) => favorito.id !== idCancion),
+    );
+  }
+
   return (
     <div className="page">
       <Header alBuscar={buscarMusica} />
+
+      {mensajeGuardado && <p role="alert">{mensajeGuardado}</p>}
+      {reproductor.mensajeAudio && (
+        <p role="alert">{reproductor.mensajeAudio}</p>
+      )}
+
+      <AudioPlayer
+        audioRef={reproductor.audioRef}
+        cancionActiva={reproductor.cancionActiva}
+        alReproducir={reproductor.confirmarReproduccion}
+        alPausar={reproductor.confirmarPausa}
+        alTerminar={reproductor.finalizarReproduccion}
+        alError={reproductor.informarErrorAudio}
+        alCerrar={reproductor.detenerReproduccion}
+      />
 
       {cargando && <p role="status">Cargando...</p>}
 
@@ -96,9 +148,7 @@ function App() {
       {busquedaRealizada &&
         !cargando &&
         !mensajeError &&
-        canciones.length === 0 && (
-          <p role="status">No se encontró nada</p>
-        )}
+        canciones.length === 0 && <p role="status">No se encontró nada</p>}
 
       <Routes>
         <Route
@@ -109,6 +159,12 @@ function App() {
               tracks={resultados}
               categoriaSeleccionada={categoriaSeleccionada}
               alCambiarCategoria={cambiarCategoria}
+              favoritos={favoritos}
+              alAlternarFavorito={alternarFavorito}
+              alEliminarFavorito={eliminarFavorito}
+              cancionEnReproduccion={reproductor.cancionActiva?.id ?? null}
+              reproduciendo={reproductor.reproduciendo}
+              alReproducir={reproductor.alternarReproduccion}
             />
           }
         />

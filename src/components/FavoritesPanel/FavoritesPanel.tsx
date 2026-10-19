@@ -2,7 +2,13 @@ import FavoriteItem from "../FavoriteItem/FavoriteItem";
 import type { FavoritesPanelProps } from "../../types/track";
 import "./FavoritesPanel.css";
 
-function FavoritesPanel({ tracks }: FavoritesPanelProps) {
+function FavoritesPanel({
+  tracks,
+  alEliminarFavorito,
+  cancionEnReproduccion,
+  reproduciendo,
+  alReproducir,
+}: FavoritesPanelProps) {
   return (
     <aside className="favorites" aria-labelledby="favorites-title">
       <header className="favorites__header">
@@ -28,20 +34,25 @@ function FavoritesPanel({ tracks }: FavoritesPanelProps) {
               genre={track.genre}
               year={track.year}
               cover={track.cover}
+              previewUrl={track.previewUrl}
+              storeUrl={track.storeUrl}
+              isPlaying={reproduciendo && cancionEnReproduccion === track.id}
+              alReproducir={() => alReproducir(track)}
+              alEliminar={() => alEliminarFavorito(track.id)}
             />
           ))}
         </ul>
       ) : (
         <div className="favorites__empty">
-        <span className="favorites__icon" aria-hidden="true">
-          ♡
-        </span>
-        <h3 className="favorites__subtitle">
-          Guarda tus canciones favoritas
-        </h3>
-        <p className="favorites__text">
-          Haz clic en el corazón de cualquier resultado para añadirlo aquí.
-        </p>
+          <span className="favorites__icon" aria-hidden="true">
+            ♡
+          </span>
+          <h3 className="favorites__subtitle">
+            Guarda tus canciones favoritas
+          </h3>
+          <p className="favorites__text">
+            Haz clic en el corazón de cualquier resultado para añadirlo aquí.
+          </p>
         </div>
       )}
     </aside>

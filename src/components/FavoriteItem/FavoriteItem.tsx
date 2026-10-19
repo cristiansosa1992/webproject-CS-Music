@@ -1,25 +1,62 @@
-import type { TrackCardProps } from "../../types/track";
+import { useState } from "react";
+import type { FavoriteItemProps } from "../../types/track";
 import "./FavoriteItem.css";
 
-function FavoriteItem({ title, artist, album, cover }: TrackCardProps) {
+function FavoriteItem({
+  title,
+  artist,
+  album,
+  cover,
+  previewUrl,
+  storeUrl,
+  isPlaying,
+  alReproducir,
+  alEliminar,
+}: FavoriteItemProps) {
+  const [portadaFallida, setPortadaFallida] = useState<string | null>(null);
+
   return (
     <li className="favorite-item">
-      <img
-        className="favorite-item__cover"
-        src={cover}
-        alt={`Portada de ${album}`}
-      />
+      {cover && portadaFallida !== cover ? (
+        <img
+          className="favorite-item__cover"
+          src={cover}
+          alt={`Portada de ${album || title}`}
+          onError={() => setPortadaFallida(cover)}
+        />
+      ) : (
+        <span className="favorite-item__placeholder" aria-label="Sin portada">
+          ♪
+        </span>
+      )}
 
       <div className="favorite-item__info">
         <h3 className="favorite-item__title">{title}</h3>
         <p className="favorite-item__text">{artist}</p>
         <p className="favorite-item__text">{album}</p>
+        {storeUrl && (
+          <a
+            className="favorite-item__store-link"
+            href={storeUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Ver en iTunes
+          </a>
+        )}
       </div>
 
       <button
         className="favorite-item__button"
         type="button"
-        aria-label={`Reproducir ${title}`}
+        aria-label={
+          !previewUrl
+            ? `Fragmento no disponible de ${title}`
+            : `${isPlaying ? "Pausar" : "Reproducir"} ${title}`
+        }
+        aria-pressed={isPlaying}
+        disabled={!previewUrl}
+        onClick={alReproducir}
       >
         <svg
           width="18"
@@ -29,7 +66,11 @@ function FavoriteItem({ title, artist, album, cover }: TrackCardProps) {
           aria-hidden="true"
           focusable="false"
         >
-          <path d="M8 5v14l11-7Z" />
+          {isPlaying ? (
+            <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+          ) : (
+            <path d="M8 5v14l11-7Z" />
+          )}
         </svg>
       </button>
 
@@ -37,6 +78,7 @@ function FavoriteItem({ title, artist, album, cover }: TrackCardProps) {
         className="favorite-item__button"
         type="button"
         aria-label={`Eliminar ${title} de favoritos`}
+        onClick={alEliminar}
       >
         <svg
           width="18"

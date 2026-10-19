@@ -55,3 +55,38 @@
   outline: 2px solid #008b8b;
   outline-offset: 2px;
 }
+
+.favorite-item__placeholder {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  background-color: #e5e7eb;
+  color: #52606d;
+}
+
+.favorite-item__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.favorite-item__button[aria-pressed="true"] {
+  color: #008b8b;
+}
+
+.favorite-item__store-link {
+  color: #007575;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.favorite-item__store-link:hover {
+  color: #005f60;
+}
+
+.favorite-item__store-link:focus-visible {
+  outline: 2px solid #008b8b;
+  outline-offset: 3px;
+}

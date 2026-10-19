@@ -14,6 +14,8 @@ export function adaptarCancion(cancion: ItunesSong): Track {
     genre: cancion.primaryGenreName ?? "Género desconocido",
     year: Number.isNaN(anio) ? 0 : anio,
     cover: cancion.artworkUrl100 ?? "",
+    previewUrl: cancion.previewUrl?.replace(/^http:/, "https:"),
+    storeUrl: cancion.trackViewUrl?.replace(/^http:/, "https:"),
   };
 }
 
@@ -31,6 +33,7 @@ export function adaptarResultado(resultado: ItunesResult): Track {
       primaryGenreName: resultado.primaryGenreName,
       releaseDate: resultado.releaseDate,
       artworkUrl100: resultado.artworkUrl100,
+      trackViewUrl: resultado.collectionViewUrl,
     });
 
     return { ...album, category: "albums" };
@@ -45,5 +48,6 @@ export function adaptarResultado(resultado: ItunesResult): Track {
     genre: resultado.primaryGenreName ?? "Género desconocido",
     year: 0,
     cover: "",
+    storeUrl: resultado.artistLinkUrl?.replace(/^http:/, "https:"),
   };
 }

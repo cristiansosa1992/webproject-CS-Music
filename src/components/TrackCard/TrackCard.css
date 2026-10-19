@@ -85,3 +85,37 @@
   line-height: 1.4;
   overflow-wrap: anywhere;
 }
+
+.track-card__favorite_is-liked {
+  color: #ff6257;
+}
+
+.track-card__favorite_is-liked svg {
+  fill: currentColor;
+}
+
+.track-card__play:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.track-card__play[aria-pressed="true"] {
+  color: #008b8b;
+}
+
+.track-card__store-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #007575;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.track-card__store-link:hover {
+  color: #005f60;
+}
+
+.track-card__store-link:focus-visible {
+  outline: 2px solid #008b8b;
+  outline-offset: 3px;
+}

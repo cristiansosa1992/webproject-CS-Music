@@ -3,36 +3,20 @@ import CategoryFilter from "../CategoryFilter/CategoryFilter";
 import TrackList from "../TrackList/TrackList";
 import FavoritesPanel from "../FavoritesPanel/FavoritesPanel";
 
-import flowersCover from "../../images/covers/flowers.jpg";
-import magicCover from "../../images/covers/magic.png";
 import { useState } from "react";
 import { RESULTS_PER_PAGE } from "../../constants/config";
-import type { Track, CatalogProps } from "../../types/track";
-const favoriteTracks: Track[] = [
-  {
-    id: 1,
-    title: "Flowers",
-    artist: "Miley Cyrus",
-    album: "Endless Summer Vacation",
-    genre: "Pop",
-    year: 2023,
-    cover: flowersCover,
-  },
-  {
-    id: 10,
-    title: "Magic",
-    artist: "The Wink",
-    album: "The wink",
-    genre: "rock",
-    year: 2026,
-    cover: magicCover,
-  },
-];
+import type { CatalogProps } from "../../types/track";
 
 function Main({
   tracks,
   categoriaSeleccionada,
   alCambiarCategoria,
+  favoritos,
+  alAlternarFavorito,
+  alEliminarFavorito,
+  cancionEnReproduccion,
+  reproduciendo,
+  alReproducir,
 }: CatalogProps) {
   const [cantidadVisible, setCantidadVisible] = useState(RESULTS_PER_PAGE);
 
@@ -50,7 +34,14 @@ function Main({
           categoriaSeleccionada={categoriaSeleccionada}
           alCambiarCategoria={alCambiarCategoria}
         />
-        <TrackList tracks={cancionesVisibles} />
+        <TrackList
+          tracks={cancionesVisibles}
+          favoritos={favoritos}
+          alAlternarFavorito={alAlternarFavorito}
+          cancionEnReproduccion={cancionEnReproduccion}
+          reproduciendo={reproduciendo}
+          alReproducir={alReproducir}
+        />
 
         {cantidadVisible < tracks.length && (
           <button
@@ -63,7 +54,13 @@ function Main({
         )}
       </section>
 
-      <FavoritesPanel tracks={favoriteTracks} />
+      <FavoritesPanel
+        tracks={favoritos}
+        alEliminarFavorito={alEliminarFavorito}
+        cancionEnReproduccion={cancionEnReproduccion}
+        reproduciendo={reproduciendo}
+        alReproducir={alReproducir}
+      />
     </main>
   );
 }
