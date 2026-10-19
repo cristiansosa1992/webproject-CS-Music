@@ -10,11 +10,12 @@ iTunes Search API, escuchar fragmentos musicales y guardar favoritos.
 - **Repositorio:** [webproject-CS-Music](https://github.com/cristiansosa1992/webproject-CS-Music).
 - **Tablero:** [CS-Music — Plan de desarrollo](https://github.com/users/cristiansosa1992/projects/2).
 - **Rama de desarrollo:** `stage-frontend`.
+- **Aplicación publicada:** [CS-Music en GitHub Pages](https://cristiansosa1992.github.io/webproject-CS-Music/).
 
 ## Estado actual
 
-Funciones principales implementadas. Pendientes la configuración completa
-del despliegue en GitHub Pages y la revisión final de TripleTen.
+Funciones principales implementadas y aplicación publicada en GitHub Pages.
+Pendiente la revisión final contra la lista de comprobación de TripleTen.
 
 - Página principal con catálogo musical.
 - Página Sobre el autor.
@@ -124,7 +125,14 @@ src/
 ```
 
 Las rutas de la aplicación son `/` y `/about`, además de una vista para
-direcciones no encontradas.
+direcciones no encontradas. Se utiliza `HashRouter`, por lo que las rutas
+aparecen después de `#` en la dirección del navegador:
+
+- Inicio: [catálogo musical](https://cristiansosa1992.github.io/webproject-CS-Music/#/).
+- Sobre el autor: [presentación del autor](https://cristiansosa1992.github.io/webproject-CS-Music/#/about).
+
+Este formato permite recargar las páginas internas en GitHub Pages sin
+solicitar al servidor una ruta física como `/about`.
 
 ## API y almacenamiento
 
@@ -160,25 +168,27 @@ Previsualizar la versión de producción:
 
 ## Despliegue
 
-**Plataforma elegida:** GitHub Pages.
+**Plataforma:** GitHub Pages.
 
-**Estado:** pendiente de publicación y comprobación. La siguiente dirección
-es la prevista, no un despliegue confirmado:
+**Estado:** publicado. GitHub Actions finalizó correctamente y el autor
+confirmó el funcionamiento de la aplicación en la dirección pública.
 
-`https://cristiansosa1992.github.io/webproject-CS-Music/`
+[Abrir CS-Music](https://cristiansosa1992.github.io/webproject-CS-Music/)
 
-La opción `base` de Vite ya está configurada como `/webproject-CS-Music/`.
-Esto permite generar las rutas de recursos para el subdirectorio del
-repositorio, pero no publica la aplicación por sí solo.
+La opción `base` de Vite está configurada como `/webproject-CS-Music/`
+para generar las rutas de recursos dentro del subdirectorio del repositorio.
+La navegación utiliza `HashRouter` para admitir la recarga de páginas internas.
 
-Antes de considerar terminado el despliegue falta:
+El flujo `.github/workflows/deploy.yml` se ejecuta con cada push a
+`stage-frontend`. Instala las dependencias con `npm ci`, ejecuta lint,
+genera la versión de producción y publica el contenido de `dist/` mediante
+GitHub Actions. El entorno `github-pages` permite desplegar desde esa rama.
 
-- Ajustar el enrutamiento para el subdirectorio y resolver la recarga de
-  rutas como `/about` en GitHub Pages.
-- Crear el flujo de GitHub Actions que construya y publique `dist/`.
-- Configurar GitHub Pages para utilizar GitHub Actions.
-- Comprobar la URL publicada, recursos, navegación y recarga directa.
-- Sustituir el estado pendiente de este README por el enlace verificado.
+Comprobaciones manuales confirmadas por el autor en la aplicación publicada:
+
+- Búsqueda musical y reproducción de fragmentos.
+- Agregar favoritos y conservarlos al recargar.
+- Navegación a Sobre el autor y recarga sin error 404.
 
 La rama `stage-frontend` se mantiene separada de `main` hasta completar
 el proceso de revisión correspondiente.
@@ -186,7 +196,8 @@ el proceso de revisión correspondiente.
 ## Próximos pasos
 
 - Completar la revisión final contra la lista de comprobación de TripleTen.
-- Publicar la aplicación y añadir el enlace del despliegue.
+- Crear el pull request de `stage-frontend` a `main` para la revisión,
+  sin fusionarlo antes de la aprobación correspondiente.
 
 ## Recursos y créditos
 
