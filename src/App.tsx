@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
@@ -15,6 +15,7 @@ import { useAudioPlayer } from "./hooks/useAudioPlayer";
 import "./App.css";
 
 function App() {
+  const navigate = useNavigate();
   // Guarda canciones, álbumes o artistas recibidos de iTunes.
   const [canciones, setCanciones] = useState<ItunesResult[]>([]);
 
@@ -44,6 +45,7 @@ function App() {
       return;
     }
 
+    void navigate("/");
     ultimaBusqueda.current = textoLimpio;
     const identificadorSolicitud = ++solicitudActual.current;
     // Prepara una búsqueda nueva y reinicia las tarjetas visibles.
@@ -141,7 +143,12 @@ function App() {
         alCerrar={reproductor.detenerReproduccion}
       />
 
-      {cargando && <p role="status">Cargando...</p>}
+      {cargando && (
+        <div className="page__loading" role="status" aria-live="polite">
+          <span className="page__spinner" aria-hidden="true" />
+          <span>Cargando...</span>
+        </div>
+      )}
 
       {mensajeError && <p role="alert">{mensajeError}</p>}
 
